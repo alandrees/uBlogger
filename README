@@ -1,0 +1,7 @@
+uBlogger
+Alan Drees
+Sat Apr 7 2012
+
+Very simple desktop client for WordPress.  Utilizes PyGTK, and a library called wordpresslib (https://code.google.com/p/wordpress-library/).
+
+Modified the wordpresslib slightly to allow for sending tags as well. 

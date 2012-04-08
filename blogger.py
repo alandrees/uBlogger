@@ -1,9 +1,45 @@
 #!/usr/bin/env python
 #coding=UTF-8
 
+"""
+      blogger.py
+      
+      uBlogger - MicroBlogger
+      A lightweight WordPress blogging client utilizing 
+      wordpresslib and PyGTK.
+      
+      Copyright (C) 2012 Alan Drees
+      alandrees@theselves.com
+      
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 2 of the License, or
+      (at your option) any later version.
+
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+
 ##TODO:
 ##     Add screen detection, get geometry of the way a desktop is laid out, and have the window display somewhat unobtrusively... (negated by saving the location and restoring it)
-##     
+##     Add previous post interactions.  Editing, deleting, loading, viewing.
+##     Multiple Windows for multiple entries.  Interaction determined by notification-area icon drop-down list.
+##     Clean up the code a bit, make it a bit more modular.
+##     Support multiple user/login/host combinations, with facilities to switch between them.
+##     unlikely, but support other blogging platforms too.
+
+__author__ = "Alan Drees <alandrees@theselves.com>"
+__version__ = "$Revision: 1.0 $"
+__date__ = "$Sat Apr  7 19:50:21 EDT 2012 $"
+__copyright__ = "Copyright (C) 2012 Alan Drees"
+__license__ = "GPLv2"
+
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -15,12 +51,13 @@ CONFIG = os.getenv("HOME")+"/.ublogger.conf"
 
 class WordPress_Interface:
 
+
+"""a class to simplify interfacing with wordpress even further"""
+
     def __init__(self):
         pass
     
 
-    #posts topic
-    #@staticmethod
     def _post(title, tags, body, category, hostinfo):
         url = 'http://' + hostinfo[2] + "/xmlrpc.php"
         wpc = wordpresslib.WordPressClient(url, hostinfo[0], hostinfo[1])
@@ -48,24 +85,27 @@ class WordPress_Interface:
     get_categories = staticmethod(_get_categories)
 
     #gets a list of recent posts
-#    @staticmethod
     def get_recent_posts(count=5):
         pass
 
+    get_recent_posts = staticmethod(get_recent_posts)
+
     #loads the data from a recent post
-#    @staticmethod 
-    def load_recent_post(id):
+    def load_post(id):
         pass
+
+    load_post = staticmethod(load_post)
 
     #modifies an existing recent post
-#    @staticmethod
-    def update_recent_post(id,title, tags, body, hostinfo):
+    def update_post(id,title, tags, body, hostinfo):
         pass
+    
+    load_post = staticmethod(update_post)
 
     #deletes a recent post
-#    @staticmethod 
-    def delete_recent_post(id):
+    def delete_post(id):
         pass
+    delete_post = staticmethod(delete_post)
     
 
 class GTK_App:
@@ -96,6 +136,9 @@ class GTK_App:
         self.is_visible = True
 
     def _key_handler(self, widget, event):
+        ##this handler is disabled because I found it very unreliable, and was replaced with a button.
+        ##all of the functionality found here is replicated with other means.
+
         if event.keyval == 115 and event.state & gtk.gdk.CONTROL_MASK:
             #ctrl-s
             self.title_entry.set_sensitive(False)
