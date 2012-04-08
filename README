@@ -4,4 +4,9 @@ Sat Apr 7 2012
 
 Very simple desktop client for WordPress.  Utilizes PyGTK, and a library called wordpresslib (https://code.google.com/p/wordpress-library/).
 
-Modified the wordpresslib slightly to allow for sending tags as well. 
+Modified the wordpresslib slightly to allow for sending tags as well.
+
+Modifications to wordpress:
+			Line 115: added self.tags = ''
+			line 227: added a comma (to continue the list)
+			line 228: added: 'mt_keywords' = post.tags
