@@ -10,3 +10,7 @@ Modifications to wordpress:
 			Line 115: added self.tags = ''
 			line 227: added a comma (to continue the list)
 			line 228: added: 'mt_keywords' = post.tags
+
+Update: Monday April 8 2013:
+
+Does not work with wordpress 3.5.1.  A Fix will be coming.
